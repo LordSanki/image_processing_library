@@ -1,7 +1,10 @@
 include $(DIST_ROOT)/scripts/$(MCONFIG_LOCATION)MCONFIG.local
 
-PROJECT_DIR             ?= $(DIST_ROOT)/Project/.
-LIBRARY_DIR		?= $(PROJECT_DIR)/Library/.
+CSL783_DIR		?= $(DIST_ROOT)/CSL783/.
+CONTROLLER_DIR		?= $(PROJECT_DIR)/Controller/.
+APPGUICSL783_DIR	?= $(PROJECT_DIR)/AppGuiCSL783/.
+APPCONSOLE783_DIR	?= $(PROJECT_DIR)/AppConsoleCSL783/.
+LIBIMAGESCALER_DIR	?= $(PROJECT_DIR)/LibImageScaler/.
 
 DEPS_DIR        ?= $(DIST_ROOT)/Dependencies/
 LIBSQLITE_DIR   ?= $(DEPS_DIR)/LibSQLite/
@@ -18,7 +21,11 @@ ifeq ($(DEVELOPER_BUILD), true)
         LIBSOCI_REV	=HEAD
         LIBCURL_REV	=HEAD
         BOOST_REV	=HEAD
-	LIBRARY_REV	=HEAD
+	LIBIMAGESCALER_REV	=HEAD
+	APPGUICSL783_REV	=HEAD
+	APPCONSOLE783_REV	=HEAD
+	CONTROLLER_REV		=HEAD
+	
 else
 	LIBJPEG_REV	=1
         LIBPGSQL_REV	=1
@@ -27,6 +34,10 @@ else
         LIBCURL_REV	=1
         BOOST_REV	=1
 	LIBRARY_REV	=1
+	LIBIMAGESCALER_REV	=5
+	APPGUICSL783_REV	=5
+	APPCONSOLE783_REV	=5
+	CONTROLLER_REV		=5
 endif
 
 RED=\033[01;31m
@@ -49,11 +60,13 @@ QMAKE	= ${QTDIR}/bin/qmake
  export LIBPGSQL_ROOT           ?= $(LIBPGSQL_DIR)/package/Stage/usr/.
  export LIBOPENCV_ROOT          ?= $(LIBOPENCV_DIR)/package/Stage/usr/.
  export BOOST_ROOT              ?= $(BOOST_DIR)/package/Stage/.
- export LIBRARY_ROOT              ?= $(BOOST_DIR)/package/Stage/.
+ export APPCONSOLE783_ROOT      ?= $(APPCONSOLECSL783_DIR)/package/.
+ export APPGUI783_ROOT		?= $(APPGUICSL783_DIR)/package/.
+ export CONTROLLER_ROOT		?= $(APPGUICSL783_DIR)/package/.
+ export LIBIMAGESCALER_ROOT	?= $(LIBIMAGESCALER_DIR)/package/.
 
-## Edit CCFLAGS & CPPFLAGS ###############################################################
-export CCFLAGS	= $(EXTRA_FLAGS)
-export CPPFLAGS	=
+## Edit CPPFLAGS ###############################################################
+export CPPFLAGS	= -DLINUX
 ## Available PreProcessor Flags #########################################################
 # -DOMAP_DSP      : Only used when building for BeagleBoard should not be set in this file
 # -DLINUX         : Builds Linux compatibe application
@@ -69,4 +82,5 @@ export LDFLAGS = -L$(LIBPGSQL_ROOT)/lib \
                  -L$(LIBSQLITE_ROOT)/lib \
                  -L$(LIBOPENCV_ROOT)/lib \
                  -L$(OUTPUT_DIR) \
-                 -L$(LIBRARY_DIR) \
+                 -L$(LIBIMAGESCALER_ROOT)/lib \
+		 -L$(CONTROLLER_ROOT)/lib
