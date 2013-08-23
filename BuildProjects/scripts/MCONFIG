@@ -1,0 +1,72 @@
+include $(DIST_ROOT)/scripts/$(MCONFIG_LOCATION)MCONFIG.local
+
+PROJECT_DIR             ?= $(DIST_ROOT)/Project/.
+LIBRARY_DIR		?= $(PROJECT_DIR)/Library/.
+
+DEPS_DIR        ?= $(DIST_ROOT)/Dependencies/
+LIBSQLITE_DIR   ?= $(DEPS_DIR)/LibSQLite/
+LIBSOCI_DIR     ?= $(DEPS_DIR)/LibSOCI/
+LIBPGSQL_DIR    ?= $(DEPS_DIR)/LibPostGreSQL/
+LIBOPENCV_DIR   ?= $(DEPS_DIR)/LibOpenCV/
+BOOST_DIR       ?= $(DEPS_DIR)/Boost/
+LIBCURL_DIR     ?= $(DEPS_DIR)/LibCURL/
+
+ifeq ($(DEVELOPER_BUILD), true)
+	LIBJPEG_REV	=HEAD
+        LIBPGSQL_REV	=HEAD
+        LIBSQLITE_REV	=HEAD
+        LIBSOCI_REV	=HEAD
+        LIBCURL_REV	=HEAD
+        BOOST_REV	=HEAD
+	LIBRARY_REV	=HEAD
+else
+	LIBJPEG_REV	=1
+        LIBPGSQL_REV	=1
+        LIBSQLITE_REV	=1
+        LIBSOCI_REV	=1
+        LIBCURL_REV	=1
+        BOOST_REV	=1
+	LIBRARY_REV	=1
+endif
+
+RED=\033[01;31m
+RESET=\033[00;00m
+BLUE=\033[01;34m
+GREEN=\033[01;32m
+YELLOW=\033[01;33m
+
+
+############################################################################################
+QMAKE	= ${QTDIR}/bin/qmake
+
+## Edit directory name of objects directory ################################################
+
+ export LIBKDTREE_ROOT		?= $(LIBKDTREE_DIR)/package/.
+ export LIBSQLITE_ROOT     	?= $(LIBSQLITE_DIR)/package/Stage/usr/.
+ export LIBSOCI_ROOT            ?= $(LIBSOCI_DIR)/package/Stage/usr/.
+ export LIBCURL_ROOT		?= $(LIBCURL_DIR)/package/Stage/usr/.
+ export LIBJPEG_ROOT            ?= $(LIBJPEG_DIR)/package/Stage/usr/.
+ export LIBPGSQL_ROOT           ?= $(LIBPGSQL_DIR)/package/Stage/usr/.
+ export LIBOPENCV_ROOT          ?= $(LIBOPENCV_DIR)/package/Stage/usr/.
+ export BOOST_ROOT              ?= $(BOOST_DIR)/package/Stage/.
+ export LIBRARY_ROOT              ?= $(BOOST_DIR)/package/Stage/.
+
+## Edit CCFLAGS & CPPFLAGS ###############################################################
+export CCFLAGS	= $(EXTRA_FLAGS)
+export CPPFLAGS	=
+## Available PreProcessor Flags #########################################################
+# -DOMAP_DSP      : Only used when building for BeagleBoard should not be set in this file
+# -DLINUX         : Builds Linux compatibe application
+# -DWIN32/64      : Builds Windows compatable application
+##########################################################################################
+
+## Edit Library paths for the dependencies ################################################
+export LDFLAGS = -L$(LIBPGSQL_ROOT)/lib \
+                 -L$(LIBCURL_ROOT)/lib \
+                 -L$(LIBJPEG_ROOT)/lib \
+                 -L$(BOOST_ROOT)/lib \
+                 -L$(LIBSOCI_ROOT)/lib \
+                 -L$(LIBSQLITE_ROOT)/lib \
+                 -L$(LIBOPENCV_ROOT)/lib \
+                 -L$(OUTPUT_DIR) \
+                 -L$(LIBRARY_DIR) \
