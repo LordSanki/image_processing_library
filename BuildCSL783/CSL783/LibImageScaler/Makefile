@@ -1,11 +1,13 @@
 export DIST_ROOT=$(CURDIR)/../../
 include $(DIST_ROOT)/scripts/Makefile.inc
 
+PACKAGE_PATH=$(REPO_ROOT)/LibImageScaler/
+
 download:
-	@git clone <Path>/Library package -r $(LIBRARY_REV) >git_log 2>&1
+	@#git checkout  -r $(LIBRARY_REV) >git_log 2>&1
 
 update:
-	@git pull package -r $(LIBRARY_REV)  >git_log 2>&1
+	@#git pull $(PACKAGE_PATH) -r $(LIBRARY_REV)  >git_log 2>&1
 
 configure:
 
@@ -14,10 +16,10 @@ unpack:
 patch:
 
 build:
-	@cd package && make LIBRARY >make_log 2>&1
+	@cd $(PACKAGE_PATH) && make LIBRARY >make_log 2>&1
 
 clean:
-	@cd package && make clean >make_log
+	@cd $(PACKAGE_PATH) && make clean >make_log
 
 install:
-	@#cd package && make install >make_log
+	@#cd $(PACKAGE_PATH) && make install >make_log

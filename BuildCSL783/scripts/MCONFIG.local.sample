@@ -1,5 +1,8 @@
+## Edit path for Git repository root
+export REPO_ROOT	= /home/sanki/Projects/
+
 ## Edit root path where Qt is installed ####################################################
-export QTDIR	= /home/kritikal/qt/qt_482/
+export QTDIR	= /home/sanki/Qt/qt_500/
 
 ## Edit Specifications for qmake bild flags ###############################################
 ## (This will affect type of makefile generated) ##########################################
@@ -9,10 +12,10 @@ export QMAKESPEC=linux-g++
 # for more refer $(QTDIR)/mkspecs/
 
 ## Edit path for BOOST and OKPTREE #########################################################
-export BOOST_ROOT	= /data/Dependencies/Boost/
+export BOOST_ROOT	= /home/sanki/Boost/Stage/
 
 ## Edit path for OpenCV ####################################################################
-export LIBOPENCV_ROOT       = /data/Dependencies/LibOpenCV2/usr/
+export LIBOPENCV_ROOT       = /home/sanki/OpenCV/Stage/
 
 ## Edit path for JPEG  #####################################################################
 # LIBJPEG_ROOT		= /opt/local/
