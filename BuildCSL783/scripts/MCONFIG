@@ -1,10 +1,10 @@
 include $(DIST_ROOT)/scripts/$(MCONFIG_LOCATION)MCONFIG.local
 
 CSL783_DIR		?= $(DIST_ROOT)/CSL783/.
-CONTROLLER_DIR		?= $(PROJECT_DIR)/Controller/.
-APPGUICSL783_DIR	?= $(PROJECT_DIR)/AppGuiCSL783/.
-APPCONSOLE783_DIR	?= $(PROJECT_DIR)/AppConsoleCSL783/.
-LIBIMAGESCALER_DIR	?= $(PROJECT_DIR)/LibImageScaler/.
+CONTROLLER_DIR		?= $(CSL783_DIR)/Controller/.
+APPGUICSL783_DIR	?= $(CSL783_DIR)/AppGuiCSL783/.
+APPCONSOLECSL783_DIR	?= $(CSL783_DIR)/AppConsoleCSL783/.
+LIBIMAGESCALER_DIR	?= $(CSL783_DIR)/LibImageScaler/.
 
 DEPS_DIR        ?= $(DIST_ROOT)/Dependencies/
 LIBSQLITE_DIR   ?= $(DEPS_DIR)/LibSQLite/
@@ -60,9 +60,9 @@ QMAKE	= ${QTDIR}/bin/qmake
  export LIBPGSQL_ROOT           ?= $(LIBPGSQL_DIR)/package/Stage/usr/.
  export LIBOPENCV_ROOT          ?= $(LIBOPENCV_DIR)/package/Stage/usr/.
  export BOOST_ROOT              ?= $(BOOST_DIR)/package/Stage/.
- export APPCONSOLE783_ROOT      ?= $(APPCONSOLECSL783_DIR)/package/.
+ export APPCONSOLECSL783_ROOT      ?= $(APPCONSOLECSL783_DIR)/package/.
  export APPGUI783_ROOT		?= $(APPGUICSL783_DIR)/package/.
- export CONTROLLER_ROOT		?= $(APPGUICSL783_DIR)/package/.
+ export CONTROLLER_ROOT		?= $(CONTROLLER_DIR)/package/.
  export LIBIMAGESCALER_ROOT	?= $(LIBIMAGESCALER_DIR)/package/.
 
 ## Edit CPPFLAGS ###############################################################
@@ -72,7 +72,7 @@ export CPPFLAGS	= -DLINUX
 # -DLINUX         : Builds Linux compatibe application
 # -DWIN32/64      : Builds Windows compatable application
 ##########################################################################################
-
+export CFLAGS = $(OPTFLAGS)
 ## Edit Library paths for the dependencies ################################################
 export LDFLAGS = -L$(LIBPGSQL_ROOT)/lib \
                  -L$(LIBCURL_ROOT)/lib \

@@ -6,6 +6,8 @@ MAKE	:= make --no-print-directory
 STAGE   := $(CURDIR)/Stage/
 ARCH_PKG:= x86
 OBJDIR	:= obj/
+LIBDIR	:= lib/
+BINDIR	:= bin/
 
 all: .downloadstamp .unpackstamp .patchstamp .configurestamp .buildstamp .installstamp
 

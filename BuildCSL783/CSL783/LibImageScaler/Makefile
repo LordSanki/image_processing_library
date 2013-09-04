@@ -1,10 +1,11 @@
 export DIST_ROOT=$(CURDIR)/../../
 include $(DIST_ROOT)/scripts/Makefile.inc
 
-PACKAGE_PATH=$(REPO_ROOT)/LibImageScaler/
+PACKAGE_PATH=$(REPO_ROOT)/GenericController/
 
 download:
-	@#git checkout  -r $(LIBRARY_REV) >git_log 2>&1
+	@ln -sf $(PACKAGE_PATH) package
+	@touch .downloadstamp
 
 update:
 	@#git pull $(PACKAGE_PATH) -r $(LIBRARY_REV)  >git_log 2>&1
@@ -12,14 +13,15 @@ update:
 configure:
 
 unpack:
+	@cd package && $(MAKE) unpack >make_log 2>&1
 
 patch:
 
 build:
-	@cd $(PACKAGE_PATH) && make LIBRARY >make_log 2>&1
+	@cd package && $(MAKE) LIBRARY >make_log 2>&1
 
 clean:
-	@cd $(PACKAGE_PATH) && make clean >make_log
+	@cd package && $(MAKE) clean >make_log
 
 install:
 	@#cd $(PACKAGE_PATH) && make install >make_log
