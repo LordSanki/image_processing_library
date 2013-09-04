@@ -9,7 +9,7 @@ download:
 	@cd $(CSL783_DIR) && $(MAKE) download;
 	@touch .downloadstamp
 
-configure: .downloadstamp
+configure:
 	@echo "$(BLUE) CONFIGURING DEPENDENCIES $(RESET)"
 	@cd $(DEPS_DIR) && $(MAKE) configure;
 	@echo "$(BLUE) CONFIGURING CSL783 $(RESET)"
@@ -17,7 +17,7 @@ configure: .downloadstamp
 	@echo "$(GREEN)Configure Complete.\n Please Edit scripts/MCONFIG.local before building to configure the project dependencies$(RESET)";
 	@touch .configurestamp
 
-build: .configurestamp
+build:
 	@echo "\n$(YELLOW) View $(RED)make_log$(YELLOW) file for build logs $(RESET)";
 	@echo "$(BLUE) BUILDING DEPENDENCIES $(RESET)"
 	@cd $(DEPS_DIR) && $(MAKE) build;
@@ -42,7 +42,11 @@ install:
 	@touch .installstamp
 
 patch:
+	@cd $(DEPS_DIR) && $(MAKE) patch;
+	@cd $(CSL783_DIR) && $(MAKE) patch;
 	@touch .patchstamp
 
 unpack:
+	@cd $(DEPS_DIR) && $(MAKE) unpack;
+	@cd $(CSL783_DIR) && $(MAKE) unpack;
 	@touch .unpacktamp
