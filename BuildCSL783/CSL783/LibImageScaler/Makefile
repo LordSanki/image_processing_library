@@ -1,7 +1,7 @@
 export DIST_ROOT=$(CURDIR)/../../
 include $(DIST_ROOT)/scripts/Makefile.inc
 
-PACKAGE_PATH=$(REPO_ROOT)/GenericController/
+PACKAGE_PATH=$(REPO_ROOT)/LibImageScaler/
 
 download:
 	@ln -sf $(PACKAGE_PATH) package
