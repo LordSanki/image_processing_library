@@ -21,5 +21,10 @@ build:
 clean:
 	@cd $(PACKAGE_PATH) && make clean >make_log
 
+delete_source:pre-clean
+	@rm package -rf
+	@rm .downloadstamp
+
+
 install:
 	@#cd $(PACKAGE_PATH) && make install >make_log
