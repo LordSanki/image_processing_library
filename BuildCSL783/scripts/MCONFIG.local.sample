@@ -30,7 +30,7 @@ DEVELOPER_BUILD=true
 #true
 
 ## Edit Optimization Flags ################################################################
-export OPTFLAGS	=  -ggdb -O0
+export OPTFLAGS	=  -ggdb -O0 -std=c++0x
 #export OPTFLAGS	= -O3  -fstrict-aliasing -momit-leaf-frame-pointer -fno-tree-pre -falign-loops -fomit-frame-pointer -ffinite-math-only -ffast-math -DNDEBUG -march=native
 ## Available optimizations Flags ##########################################################
 # -O		: 3, 2, 1, s, 0

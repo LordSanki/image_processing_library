@@ -5,6 +5,7 @@ CONTROLLER_DIR		?= $(CSL783_DIR)/Controller/.
 APPGUICSL783_DIR	?= $(CSL783_DIR)/AppGuiCSL783/.
 APPCONSOLECSL783_DIR	?= $(CSL783_DIR)/AppConsoleCSL783/.
 LIBIMAGESCALER_DIR	?= $(CSL783_DIR)/LibImageScaler/.
+LIBTIMEFILTERS_DIR	?= $(CSL783_DIR)/LibTimeFilters/.
 
 DEPS_DIR        ?= $(DIST_ROOT)/Dependencies/
 LIBSQLITE_DIR   ?= $(DEPS_DIR)/LibSQLite/
@@ -14,43 +15,16 @@ LIBOPENCV_DIR   ?= $(DEPS_DIR)/LibOpenCV/
 BOOST_DIR       ?= $(DEPS_DIR)/Boost/
 LIBCURL_DIR     ?= $(DEPS_DIR)/LibCURL/
 
-ifeq ($(DEVELOPER_BUILD), true)
-	LIBJPEG_REV	=HEAD
-        LIBPGSQL_REV	=HEAD
-        LIBSQLITE_REV	=HEAD
-        LIBSOCI_REV	=HEAD
-        LIBCURL_REV	=HEAD
-        BOOST_REV	=HEAD
-	LIBIMAGESCALER_REV	=HEAD
-	APPGUICSL783_REV	=HEAD
-	APPCONSOLE783_REV	=HEAD
-	CONTROLLER_REV		=HEAD
-	
-else
-	LIBJPEG_REV	=1
-        LIBPGSQL_REV	=1
-        LIBSQLITE_REV	=1
-        LIBSOCI_REV	=1
-        LIBCURL_REV	=1
-        BOOST_REV	=1
-	LIBRARY_REV	=1
-	LIBIMAGESCALER_REV	=5
-	APPGUICSL783_REV	=5
-	APPCONSOLE783_REV	=5
-	CONTROLLER_REV		=5
-endif
-
 RED=\033[01;31m
 RESET=\033[00;00m
 BLUE=\033[01;34m
 GREEN=\033[01;32m
 YELLOW=\033[01;33m
 
-
-############################################################################################
+################################################################################
 QMAKE	= ${QTDIR}/bin/qmake
 
-## Edit directory name of objects directory ################################################
+## Edit directory name of objects directory ####################################
 
  export LIBKDTREE_ROOT		?= $(LIBKDTREE_DIR)/package/.
  export LIBSQLITE_ROOT     	?= $(LIBSQLITE_DIR)/package/Stage/usr/.
@@ -64,16 +38,17 @@ QMAKE	= ${QTDIR}/bin/qmake
  export APPGUI783_ROOT		?= $(APPGUICSL783_DIR)/package/.
  export CONTROLLER_ROOT		?= $(CONTROLLER_DIR)/package/.
  export LIBIMAGESCALER_ROOT	?= $(LIBIMAGESCALER_DIR)/package/.
+ export LIBTIMEFILTERS_ROOT	?= $(LIBTIMEFILTERS_DIR)/package/.
 
-## Edit CPPFLAGS ###############################################################
-export CPPFLAGS	= -DLINUX
-## Available PreProcessor Flags #########################################################
+## Edit CFLAGS ###############################################################
+export CFLAGS = $(OPTFLAGS)
+## Available Flags #########################################################
 # -DOMAP_DSP      : Only used when building for BeagleBoard should not be set in this file
 # -DLINUX         : Builds Linux compatibe application
 # -DWIN32/64      : Builds Windows compatable application
-##########################################################################################
-export CFLAGS = $(OPTFLAGS)
-## Edit Library paths for the dependencies ################################################
+################################################################################
+
+## Edit Library paths for the dependencies #####################################
 export LDFLAGS = -L$(LIBPGSQL_ROOT)/lib \
                  -L$(LIBCURL_ROOT)/lib \
                  -L$(LIBJPEG_ROOT)/lib \
@@ -83,4 +58,5 @@ export LDFLAGS = -L$(LIBPGSQL_ROOT)/lib \
                  -L$(LIBOPENCV_ROOT)/lib \
                  -L$(OUTPUT_DIR) \
                  -L$(LIBIMAGESCALER_ROOT)/lib \
-		 -L$(CONTROLLER_ROOT)/lib
+		 -L$(CONTROLLER_ROOT)/lib \
+		 -L$(LIBTIMEFILTERS_ROOT)/lib

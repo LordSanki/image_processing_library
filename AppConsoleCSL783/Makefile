@@ -5,7 +5,7 @@ INCLUDE+= -I$(CONTROLLER_ROOT)/include -isystem$(BOOST_ROOT)/include -isystem$(L
 
 src=AppGenericConsole.cpp
 
-LIBS= -lcontroller -limagescaler -lopencv_core -lopencv_highgui -lopencv_imgproc -lpthread -lboost_thread
+LIBS= -lcontroller -ltimefilters -limagescaler -lopencv_core -lopencv_highgui -lopencv_imgproc -lpthread -lboost_thread
 
 TARGET:= AppConsole
 

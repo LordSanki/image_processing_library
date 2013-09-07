@@ -9,9 +9,13 @@ download:pre-download
 	@cd $(CONTROLLER_DIR) && make download >make_log
 	@echo "$(BLUE)\t Fetching LIBIMAGESCALER$(RESET)"
 	@cd $(LIBIMAGESCALER_DIR) && make download >make_log
+	@echo "$(BLUE)\t Fetching LIBTIMEFILTERS$(RESET)"
+	@cd $(LIBTIMEFILTERS_DIR) && make download >make_log
 	@touch .downloadstamp
 
 configure:pre-configure
+	@echo "$(BLUE)\t Configuring LIBTIMEFILTERS$(RESET)"
+	@cd $(LIBTIMEFILTERS_DIR) && make configure >make_log
 	@echo "$(BLUE)\t Configuring LIBIMAGESCALER$(RESET)"
 	@cd $(LIBIMAGESCALER_DIR) && make configure >make_log
 	@echo "$(BLUE)\t Configuring CONTROLLER$(RESET)"
@@ -23,6 +27,8 @@ configure:pre-configure
 	@touch .configurestamp
 
 build:pre-build
+	@echo "$(BLUE)\t Building LIBTIMEFILTERS$(RESET)"
+	@cd $(LIBTIMEFILTERS_DIR) && make build >make_log
 	@echo "$(BLUE)\t Building LIBIMAGESCALER$(RESET)"
 	@cd $(LIBIMAGESCALER_DIR) && make build >make_log
 	@echo "$(BLUE)\t Building CONTROLLER$(RESET)"
@@ -41,6 +47,9 @@ clean:pre-clean
 	@cd $(CONTROLLER_DIR) && make clean >make_log
 	@echo "$(BLUE)\t Cleaning LIBIMAGESCALER$(RESET)"
 	@cd $(LIBIMAGESCALER_DIR) && make clean >make_log
+	@echo "$(BLUE)\t Cleaning LIBTIMEFILTERS$(RESET)"
+	@cd $(LIBTIMEFILTERS_DIR) && make clean >make_log
+
 	
 
 install:
@@ -49,7 +58,7 @@ install:
 
 
 delete_source:pre-clean
-	@#cd $(LIBRARY_DIR) && rm package -rf
+	@#cd $(LIBRARY_DIR) && rm package -rf`
 	@rm .downloadstamp
 
 update:

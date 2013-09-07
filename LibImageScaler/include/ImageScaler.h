@@ -3,17 +3,17 @@
 
 #include "SharedImage.h"
 
-namespace ImageScalerAPI
+namespace ImageScaler
 {
-  struct Params
-  {
-      double scale;
-  };
-
-  class ImageScaler
+  class BilinearInterpolation
   {
     public:
-      SImage bilinearScaling(SImage src, Params *params);
+      struct Params
+      {
+          double scale;
+      };
+
+      static SImage apply(SImage src, void *params);
   };
 }
 #endif // __IMAGESCALER_H__

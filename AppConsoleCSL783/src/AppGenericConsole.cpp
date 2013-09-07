@@ -8,6 +8,7 @@ using namespace ControllerAPI;
 
 void applyAlgo(int uid, Controller *obj)
 {
+  if(uid == -1) return;
   list<AlgoArgs> arglist;
   obj->getAlgoArgsList(uid, arglist);
   typedef list<AlgoArgs>::iterator  ArgIT;
@@ -21,9 +22,11 @@ void applyAlgo(int uid, Controller *obj)
 
 void callBackDisplay(void *arg, SImage img)
 {
+  cvSaveImage("output.jpg", img->get());
+  cvDestroyAllWindows();
+  cvNamedWindow("IMAGE");
   cvShowImage("IMAGE", img->get());
   cvWaitKey(500);
-  cvSaveImage("output.jpg", img->get());
 }
 
 void printMenu()
@@ -35,6 +38,7 @@ void printMenu()
   cout<<"P    ::::    Print Menu"<<endl;
   cout<<"L    ::::    List Algorithms"<<endl;
   cout<<"A    ::::    Apply Algorithms"<<endl;
+  cout<<"U    ::::    Undo Last Operation"<<endl;
   cout<<"=================================================================="<<endl;
   cout.flush();
 }
@@ -43,20 +47,25 @@ int main(int argc, char** argv)
 {
   Controller *m_controller = new Controller();
   CBInterface interface;
-  interface.display_arg = NULL;
+  interface.display_arg = nullptr;
   interface.display = callBackDisplay;
   m_controller->SetupCBInterface(interface);
   if(argc > 1)
   {
-    m_controller->init(&argv[1][0]);
+    if(argc > 2)
+    {
+      std::string s = &argv[2][0];
+      if(s.compare("-g")==0)
+        m_controller->init(&argv[1][0], true);
+    }
+    else
+      m_controller->init(&argv[1][0]);
   }
   else
   {
-    cout<<"Usage: App <path to image file>"<<endl;
+    cout<<"Usage: App <path to image file> <-g to force grayscale>"<<endl;
     return -1;
   }
-
-  cvNamedWindow("IMAGE");
 
   char c = 'S';
   list<AlgoGroup> algos;
@@ -91,7 +100,7 @@ int main(int argc, char** argv)
       case 'A':
         if(m_controller->isFree())
         {
-          cout<<"Enter Algo ID: ";
+          cout<<"Enter Algo ID(-1 to Cancel): ";
           scanf("%d", &uid);
           applyAlgo(uid, m_controller);
         }
@@ -99,6 +108,10 @@ int main(int argc, char** argv)
         {
           cout<<"Engine is busy please try after some time"<<endl;
         }
+      break;
+      case 'U':
+      case 'u':
+        m_controller->undo();
       break;
       case 'e':
       case 'E':
@@ -114,6 +127,7 @@ int main(int argc, char** argv)
   }
   cout<<"Exiting....."<<endl;
   delete m_controller;
+  cvDestroyAllWindows();
   cout << "\x1b[2J\x1b[1;1H" <<endl;
   cout.flush();
   cout<<"Good Bye !!!"<<endl;

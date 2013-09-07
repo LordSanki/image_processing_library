@@ -1,10 +1,10 @@
 export DIST_ROOT?=$(CURDIR)/../../../
 include $(DIST_ROOT)/scripts/Makefile.inc
 
-INCLUDE+= -I$(CONTROLLER_ROOT)/include -I$(LIBIMAGESCALER_ROOT)/include -isystem$(BOOST_ROOT)/include -isystem$(LIBOPENCV_ROOT)/include -I$(LIBTIMEFILTERS_ROOT)/include 
-src=Controller.cpp
+INCLUDE+= -I$(CONTROLLER_ROOT)/include -I$(LIBTIMEFILTER_ROOT)/include -isystem$(BOOST_ROOT)/include -isystem$(LIBOPENCV_ROOT)/include
+src=GenericFilter.cpp
 
-TARGET:= libcontroller
+TARGET:= libtimefilters
 
 LIBRARY: $(src:%.cpp=$(OBJDIR)/%.o)
 	$(AR) -rs $(LIBDIR)/$(TARGET).a $<
@@ -13,12 +13,12 @@ BINARY:
 
 download:
 
-unpack: $(OBJDIR) $(LIBDIR)
+unpack: $(LIBDIR) $(OBJDIR)
 
 $(LIBDIR):
 	mkdir -p $(LIBDIR)
 
-$(OBJDIR):
+$(OBJDIR): 
 	mkdir -p $(OBJDIR)
 
 patch:
@@ -32,3 +32,5 @@ clean:
 
 $(OBJDIR)/%.o: src/%.cpp
 	$(CXX) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+
