@@ -1,0 +1,62 @@
+include $(DIST_ROOT)/scripts/$(MCONFIG_LOCATION)MCONFIG.local
+
+CSL783_DIR		?= $(DIST_ROOT)/CSL783/.
+CONTROLLER_DIR		?= $(CSL783_DIR)/Controller/.
+APPGUICSL783_DIR	?= $(CSL783_DIR)/AppGuiCSL783/.
+APPCONSOLECSL783_DIR	?= $(CSL783_DIR)/AppConsoleCSL783/.
+LIBIMAGESCALER_DIR	?= $(CSL783_DIR)/LibImageScaler/.
+LIBTIMEFILTERS_DIR	?= $(CSL783_DIR)/LibTimeFilters/.
+
+DEPS_DIR        ?= $(DIST_ROOT)/Dependencies/
+LIBSQLITE_DIR   ?= $(DEPS_DIR)/LibSQLite/
+LIBSOCI_DIR     ?= $(DEPS_DIR)/LibSOCI/
+LIBPGSQL_DIR    ?= $(DEPS_DIR)/LibPostGreSQL/
+LIBOPENCV_DIR   ?= $(DEPS_DIR)/LibOpenCV/
+BOOST_DIR       ?= $(DEPS_DIR)/Boost/
+LIBCURL_DIR     ?= $(DEPS_DIR)/LibCURL/
+
+RED=\033[01;31m
+RESET=\033[00;00m
+BLUE=\033[01;34m
+GREEN=\033[01;32m
+YELLOW=\033[01;33m
+
+################################################################################
+QMAKE	= ${QTDIR}/bin/qmake
+
+## Edit directory name of objects directory ####################################
+
+ export LIBKDTREE_ROOT		?= $(LIBKDTREE_DIR)/package/.
+ export LIBSQLITE_ROOT     	?= $(LIBSQLITE_DIR)/package/Stage/usr/.
+ export LIBSOCI_ROOT            ?= $(LIBSOCI_DIR)/package/Stage/usr/.
+ export LIBCURL_ROOT		?= $(LIBCURL_DIR)/package/Stage/usr/.
+ export LIBJPEG_ROOT            ?= $(LIBJPEG_DIR)/package/Stage/usr/.
+ export LIBPGSQL_ROOT           ?= $(LIBPGSQL_DIR)/package/Stage/usr/.
+ export LIBOPENCV_ROOT          ?= $(LIBOPENCV_DIR)/package/Stage/usr/.
+ export BOOST_ROOT              ?= $(BOOST_DIR)/package/Stage/.
+ export APPCONSOLECSL783_ROOT      ?= $(APPCONSOLECSL783_DIR)/package/.
+ export APPGUI783_ROOT		?= $(APPGUICSL783_DIR)/package/.
+ export CONTROLLER_ROOT		?= $(CONTROLLER_DIR)/package/.
+ export LIBIMAGESCALER_ROOT	?= $(LIBIMAGESCALER_DIR)/package/.
+ export LIBTIMEFILTERS_ROOT	?= $(LIBTIMEFILTERS_DIR)/package/.
+
+## Edit CFLAGS ###############################################################
+export CFLAGS = $(OPTFLAGS)
+## Available Flags #########################################################
+# -DOMAP_DSP      : Only used when building for BeagleBoard should not be set in this file
+# -DLINUX         : Builds Linux compatibe application
+# -DWIN32/64      : Builds Windows compatable application
+################################################################################
+
+## Edit Library paths for the dependencies #####################################
+export LDFLAGS = -L$(LIBPGSQL_ROOT)/lib \
+                 -L$(LIBCURL_ROOT)/lib \
+                 -L$(LIBJPEG_ROOT)/lib \
+                 -L$(BOOST_ROOT)/lib \
+                 -L$(LIBSOCI_ROOT)/lib \
+                 -L$(LIBSQLITE_ROOT)/lib \
+                 -L$(LIBOPENCV_ROOT)/lib \
+                 -L$(OUTPUT_DIR) \
+                 -L$(LIBIMAGESCALER_ROOT)/lib \
+		 -L$(CONTROLLER_ROOT)/lib \
+		 -L$(LIBTIMEFILTERS_ROOT)/lib
