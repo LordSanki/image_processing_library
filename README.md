@@ -11,14 +11,17 @@ How to build
 
 ```bash
 $> cd Build
+```
 
 ```bash
 $>vi scripts/MCONFIG.local
+```
 
 edit the paths for opencv and boost if they are not installed in the standard parhs
 
 ```bash
 $> make
+```
 
 Features
 -------------------------
@@ -28,9 +31,9 @@ Features
 
 List of Algos
 -----------------------
-Scaling (biliniar)
-Gradient(sobel scharr DoG)
-Threshold(binary bitsplice)
-Enhancements(normalization)
-Spatial(Gaussian)
+* Scaling (biliniar)
+* Gradient(sobel scharr DoG)
+* Threshold(binary bitsplice)
+* Enhancements(normalization)
+* Spatial(Gaussian)
 
